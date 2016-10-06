@@ -1,0 +1,15 @@
+localhost:8080 {
+#startup cgi.bat &
+gzip # <- compression
+log logs/access.log
+errors logs/errors.log
+root C:\divers\test\reactapi # <- your webroot 
+fastcgi / 127.0.0.1:9000 php {
+	pool 100
+}
+rewrite {
+    if {file} not favicon.ico
+    to {path} {path}/ /maintenance.html /index.php
+}
+header /api Access-Control-Allow-Origin *
+}
